@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:51:36 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/03 06:19:03 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/05 04:58:45 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <fcntl.h>
 
 /* Constante */
 
@@ -80,13 +81,21 @@ int		cmd_echo(t_params *para);
 int		cmd_pwd(void);
 
 //parsing
-void	set_para(t_params **param, char *input);
+void	set_para(t_params **param, char *input, t_env **env);
 void	set_output(t_params **para);
+void	set_input(t_params **para);
+char	*heredoc(char *exit);
+void	if_del(t_params **para);
+void	set_var(t_params **para, t_env **env);
+
+//exec
+void	ft_exec(t_params **para, char **env);
 
 //utils
 char    *clean_input(char *raw_input);
 t_env	*set_env(char **env);
 void	print_all(t_params **para, t_env **env);
+char	*recherche_env(char *str, t_env **env);
 
 
 #endif
