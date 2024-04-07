@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strstrbool.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/11 14:15:08 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/04 05:59:45 by njeanbou         ###   ########.fr       */
+/*   Created: 2024/04/05 04:45:25 by njeanbou          #+#    #+#             */
+/*   Updated: 2024/04/05 05:04:21 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char *s2)
+int	ft_strstrbool(const char *str, const char *re)
 {
-	char	*new;
-	int		i;
-	int		j;
+	int	i;
+	int	z;
 
-	i = 0;
-	j = 0;
-	if (!s1 || !s2)
-		return (s2);
-	new = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	if (!new)
-		return (NULL);
-	while (s1[i])
+	while (*str != '\0')
 	{
-		new[i] = s1[i];
-		i++;
+		i = 0;
+		z = 0;
+		while (str[i] && re[z] && str[i] == re[z])
+		{
+			z++;
+			i++;
+		}
+		if (re[z] == '\0' && ft_strlen(str) == ft_strlen(re))
+			return (0);
+		str++;
 	}
-	while (s2[j])
-	{
-		new[i] = s2[j];
-		i++;
-		j++;
-	}
-	new[i] = '\0';
-	return (new);
+	return (1);
 }

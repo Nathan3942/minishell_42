@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin_nl.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/11 14:15:08 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/04 05:59:45 by njeanbou         ###   ########.fr       */
+/*   Created: 2024/04/04 05:57:25 by njeanbou          #+#    #+#             */
+/*   Updated: 2024/04/04 06:00:03 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char *s2)
+char	*ft_strjoin_nl(char const *s1, char *s2)
 {
 	char	*new;
 	int		i;
@@ -22,7 +22,7 @@ char	*ft_strjoin(char const *s1, char *s2)
 	j = 0;
 	if (!s1 || !s2)
 		return (s2);
-	new = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	new = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 2) * sizeof(char));
 	if (!new)
 		return (NULL);
 	while (s1[i])
@@ -30,6 +30,7 @@ char	*ft_strjoin(char const *s1, char *s2)
 		new[i] = s1[i];
 		i++;
 	}
+	new[i++] = '\n';
 	while (s2[j])
 	{
 		new[i] = s2[j];
