@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 03:21:39 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/03 05:58:59 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/05 03:29:46 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,44 @@ void	print_all(t_params **para, t_env **env)
 			i++;
 		}
 		printf("\n");
-		if (headp->output != NULL)
-			printf("output : %s\n", headp->output);
+		
+		if (headp->input[0] != NULL)
+		{
+			i = 0;
+			printf("input : ");
+			while (headp->input[i] != NULL)
+			{
+				printf("%s ", headp->input[i]);
+				i++;
+			}
+			printf("\n");
+		}
 		else
-			printf("output : sortie std\n");
+			printf("input : aucune\n");
 		if (headp->inp_red == entre1)
 			printf("la commande possede un <\n");
 		else if (headp->inp_red == entre2)
 			printf("la commande possede un <<\n");
 		else
 			printf("la commande na pas de redirection d'entre\n");
+		
+		if (headp->output != NULL)
+			printf("output : %s\n", headp->output);
+		else
+			printf("output : sortie std\n");
 		if (headp->out_red == sortie1)
 			printf("la commande possede un >\n");
 		else if (headp->out_red == sortie2)
 			printf("la commande possede un >>\n");
 		else
 			printf("la commande na pas de redirection de sortie\n");
+		
 		i = 0;
 		if (headp->next != NULL)
 		{
 			printf("la commande a un pipe\n");
 		}
+
 		headp = headp->next;
 	}
 	printf("\n\nEnvironnement :\n");
@@ -60,4 +77,5 @@ void	print_all(t_params **para, t_env **env)
 		printf("%s\n", heade->env_value);
 		heade = heade->next;
 	}
+	printf("\n\n\n");
 }

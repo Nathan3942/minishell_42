@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:52:31 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/03 04:43:35 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/05 04:36:56 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ int main(int argc, char **argv, char **env)
         if (input == NULL)
             break ;
         add_history(input);
-        set_para(&para, input);
+        set_para(&para, input, &lstenv);
         print_all(&para, &lstenv);
+        ft_exec(&para, env);
         free(para);
     }
     return (0);
