@@ -62,7 +62,7 @@ typedef enum e_operator {
 typedef struct s_params {
 	char	**com;
 	int		nbcom;
-	char	*input;
+	char	**input;
 	char	*output;
 	t_operator	inp_red;
 	t_operator	out_red;
