@@ -88,5 +88,4 @@ char    *clean_input(char *raw_input);
 t_env	*set_env(char **env);
 void	print_all(t_params **para, t_env **env);
 
-//ilia
 #endif
