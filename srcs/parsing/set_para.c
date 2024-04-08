@@ -6,15 +6,16 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:11:22 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/05 05:02:14 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/08 05:57:51 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	refactor_com(t_params **para, char **com)
+void	refactor_com(t_params **para)
 {
 	t_params	*head;
+	char		**com;
 	int			i;
 	int			z;
 
@@ -23,27 +24,27 @@ void	refactor_com(t_params **para, char **com)
 	head = *para;
 	while (head != NULL)
 	{
-		free(head->com);
-		while (com[i] != NULL && com[i][0] != '|')
+		while (head->com[i] != NULL && head->com[i][0] != '|')
 		{
-			if (com[i][0] != '<' && com[i][0] != '>' )
+			if (head->com[i][0] != '<' && head->com[i][0] != '>' )
 	 			z++;
 			i++;
 		}
-		head->com = (char **)malloc ((z + 1) * sizeof(char *));
+		com = (char **)malloc ((z + 1) * sizeof(char *));
 		i = 0;
 		z = 0;
-		while (com[i] != NULL && com[i][0] != '|')
+		while (head->com[i] != NULL && head->com[i][0] != '|')
 		{
-			head->com[z] = ft_strdup(com[i]);
-			if (com[i][0] != '<' && com[i][0] != '>')
+			//com[z] = ft_strdup(head->com[i]);
+			if (head->com[i][0] != '<' && head->com[i][0] != '>')
 			{
-				head->com[z] = ft_strdup(com[i]);
+				com[z] = ft_strdup(head->com[i]);
 		 		z++;
 			}
 			i++;
 		}
-		head->com[z] = NULL;
+		com[z] = NULL;
+		head->com = com;
 		head = head->next;
 	}
 }
@@ -89,10 +90,10 @@ void	set_para(t_params **param, char *input, t_env **env)
 	int			i;
 
 	para = *param;
-	v_env = *env;
+	v_env = NULL;
 	inp_sep = ft_split(input, ' ');
 	init_com(&para, inp_sep);
-	set_var(&para, &v_env);
+	set_var(&para, env);
 	para->next = NULL;
 	i = 0;
 	while (inp_sep[i] != NULL)
@@ -124,6 +125,6 @@ void	set_para(t_params **param, char *input, t_env **env)
 	}
 	para->nbcom = i;
 	if_del(&para);
-	refactor_com(&para, inp_sep);
+	refactor_com(&para);
 	return ;
 }

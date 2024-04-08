@@ -1,0 +1,36 @@
+minishell: ca
+commande :
+
+ca 
+input : aucune
+la commande na pas de redirection d'entre
+output : sortie std
+la commande na pas de redirection de sortie
+
+
+Environnement :
+TERM_PROGRAM=Apple_Terminal
+SHELL=/bin/zsh
+TERM=xterm-256color
+TMPDIR=/var/folders/b_/rccf_h21123_wj0bwb0ktzq80000gn/T/
+TERM_PROGRAM_VERSION=443
+TERM_SESSION_ID=266B56D7-751D-4FD3-8BCF-DA2B2FDA7310
+USER=njeanbou
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.gg07X4bYyJ/Listeners
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/njeanbou/.venv/bin
+LaunchInstanceID=A21B1108-72F1-4CA8-AC09-696F6C7C2F55
+__CFBundleIdentifier=com.apple.Terminal
+PWD=/Users/njeanbou/42/Projet/minigit
+XPC_FLAGS=0x0
+XPC_SERVICE_NAME=0
+SHLVL=1
+HOME=/Users/njeanbou
+LOGNAME=njeanbou
+SECURITYSESSIONID=186a5
+OLDPWD=/Users/njeanbou/42/Projet
+LANG=fr_CH.UTF-8
+_=/Users/njeanbou/42/Projet/minigit/./minishell
+
+
+
+minishell: 
