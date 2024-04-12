@@ -6,50 +6,90 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:11:22 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/08 05:57:51 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/12 05:58:24 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	refactor_com(t_params **para)
+int	count_com(t_params **para)
+{
+	t_params	*head;
+	int			i;
+	int			z;
+
+	head = *para;
+	i = 0;
+	z = 0;
+	while (head->com[i] != NULL)
+	{
+		if (head->com[i][0] != '<' && head->com[i][0] != '>')
+		{
+			if (i == 0)
+				break ;
+			if (head->com[i - 1][0] != '<' && head->com[i - 1][0] != '>')
+		 		z++;
+			if (head->com[i - 1][0] == '<' && head->com[i - 1][1] != '<')
+				z++;
+		}
+		i++;
+	}
+	return (z);
+}
+
+char	**set_com(t_params **para)
 {
 	t_params	*head;
 	char		**com;
 	int			i;
 	int			z;
 
-	i = 0;
-	z = 0;
 	head = *para;
-	while (head != NULL)
+	i = 1;
+	z = 1;
+	if (head->com[0][0] != '<' && head->com[0][0] != '>')
+			com[0] = ft_strdup(head->com[0]);
+	while (head->com[i] != NULL)
 	{
-		while (head->com[i] != NULL && head->com[i][0] != '|')
+		if (head->com[i][0] != '<' && head->com[i][0] != '>')
 		{
-			if (head->com[i][0] != '<' && head->com[i][0] != '>' )
-	 			z++;
-			i++;
-		}
-		com = (char **)malloc ((z + 1) * sizeof(char *));
-		i = 0;
-		z = 0;
-		while (head->com[i] != NULL && head->com[i][0] != '|')
-		{
-			//com[z] = ft_strdup(head->com[i]);
-			if (head->com[i][0] != '<' && head->com[i][0] != '>')
+			if (head->com[i - 1][0] != '>' && head->com[i - 1][0] != '<')
 			{
 				com[z] = ft_strdup(head->com[i]);
 		 		z++;
 			}
-			i++;
+			if (head->com[i - 1][0] == '<' && head->com[i - 1][1] == '<')
+			{
+				com[z++] = ft_strdup(head->com[i]);
+				z++;
+			}
 		}
-		com[z] = NULL;
+		i++;
+	}
+	com[z] = NULL;
+	return (com);
+}
+
+void	refactor_com(t_params **para, char **input)
+{
+	t_params	*head;
+	char		**com;
+	int			z;
+
+	z = 0;
+	head = *para;
+	while (head != NULL)
+	{
+		z = count_com(para);
+		com = (char **)malloc ((z + 1) * sizeof(char *));
+		com = set_com(para);
 		head->com = com;
 		head = head->next;
+		*para = head;
 	}
 }
 
-void	init_com(t_params **para, char **com)
+void	init_com(t_params **para, char **com, t_put **put, t_env **env)
 {
 	t_params	*head;
 	int			i;
@@ -60,7 +100,6 @@ void	init_com(t_params **para, char **com)
 	head = *para;
 	while (com[i] != NULL && com[i][0] != '|')
 	{
-		// if (com[i][0] != '<' && com[i][0] != '>' )
 	 	z++;
 		i++;
 	}
@@ -70,61 +109,41 @@ void	init_com(t_params **para, char **com)
 	while (com[i] != NULL && com[i][0] != '|')
 	{
 		head->com[z] = ft_strdup(com[i]);
-		// if (com[i][0] != '<' && com[i][0] != '>')
-		// {
-		// 	head->com[z] = ft_strdup(com[i]);
 		 	z++;
-		// }
 		i++;
 	}
 	head->com[z] = NULL;
-	set_output(para);
-	set_input(para);
+	set_put(put, para);
+	set_var(para, env);
+	set_enum(para);
+	//
+	print_com(para);
 }
 
-void	set_para(t_params **param, char *input, t_env **env)
+void	set_para(t_params **param, char *input, t_env **env, t_put **put)
 {
 	char		**inp_sep;
 	t_params	*para;
-	t_env		*v_env;
 	int			i;
 
 	para = *param;
-	v_env = NULL;
 	inp_sep = ft_split(input, ' ');
-	init_com(&para, inp_sep);
-	set_var(&para, env);
+	init_com(&para, inp_sep, put, env);
 	para->next = NULL;
 	i = 0;
 	while (inp_sep[i] != NULL)
 	{
-		if (inp_sep[i][0] == '<')
+		if (inp_sep[i][0] == '|')
 		{
-			if (inp_sep[i][1] == '\0')
-				para->inp_red = entre1;
-			else
-				para->inp_red = entre2;
-		}
-		else if (inp_sep[i][0] == '>')
-		{
-			if (inp_sep[i][1] == '\0')
-				para->out_red = sortie1;
-			else
-				para->out_red = sortie2;
-		}
-		else if (inp_sep[i][0] == '|')
-		{
-			para->nbcom = i;
-			if_del(&para);
+			ft_doc(&para);
 			para->next = (t_params *)malloc (sizeof(t_params));
 			para = para->next;
 			para->next = NULL;
-			init_com(&para, inp_sep + i + 1);
+			init_com(&para, inp_sep + i + 1, put, env);
 		}
 		i++;
 	}
-	para->nbcom = i;
-	if_del(&para);
-	refactor_com(&para);
+	ft_doc(&para);
+	refactor_com(&para, inp_sep);
 	return ;
 }

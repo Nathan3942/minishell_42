@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 04:41:08 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/08 06:01:02 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:07:53 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	set_var(t_params **para, t_env **env)
 	var = NULL;
 	headp = *para;
 	heade = *env;
-
  	i = 0;
 	while (headp->com[i] != NULL)
 	{	
@@ -33,7 +32,6 @@ void	set_var(t_params **para, t_env **env)
 			{
 				free(headp->com[i]);
 				headp->com[i] = ft_strdup(var);
-				printf("KSKS");
 			}
 		}
 		i++;

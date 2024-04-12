@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 04:04:52 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/08 02:06:43 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:13:08 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*heredoc(char *exit)
 	return (doctmp);
 }
 
-void	if_del(t_params **para)
+void	ft_doc(t_params **para)
 {
 	t_params	*head;
 	char		*tmp;

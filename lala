@@ -1,0 +1,11 @@
+echo
+includes
+la
+lala
+libft
+main.c
+main.o
+makefile
+minishell
+srcs
+test.txt

@@ -6,20 +6,22 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 03:21:39 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/05 03:29:46 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/12 05:21:07 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	print_all(t_params **para, t_env **env)
+void	print_all(t_params **para, t_env **env, t_put **put)
 {
 	t_params	*headp;
 	t_env		*heade;
+	t_put		*headput;
 	int			i;
 
 	headp = *para;
 	heade = *env;
+	headput = *put;
 	i = 0;
 	printf("commande :\n\n");
 	while (headp != NULL)
@@ -31,17 +33,8 @@ void	print_all(t_params **para, t_env **env)
 		}
 		printf("\n");
 		
-		if (headp->input[0] != NULL)
-		{
-			i = 0;
-			printf("input : ");
-			while (headp->input[i] != NULL)
-			{
-				printf("%s ", headp->input[i]);
-				i++;
-			}
-			printf("\n");
-		}
+		if (headput->input != NULL)
+			printf("inputput : %s\n", headput->input);
 		else
 			printf("input : aucune\n");
 		if (headp->inp_red == entre1)
@@ -51,8 +44,8 @@ void	print_all(t_params **para, t_env **env)
 		else
 			printf("la commande na pas de redirection d'entre\n");
 		
-		if (headp->output != NULL)
-			printf("output : %s\n", headp->output);
+		if (headput->output != NULL)
+			printf("output : %s\n", headput->output);
 		else
 			printf("output : sortie std\n");
 		if (headp->out_red == sortie1)
@@ -78,4 +71,20 @@ void	print_all(t_params **para, t_env **env)
 		heade = heade->next;
 	}
 	printf("\n\n\n");
+}
+
+void	print_com(t_params **para)
+{
+	t_params	*head;
+	int			i;
+
+	head = *para;
+	i = 0;
+	printf("\nPreCmd : \n\n");
+	while (head->com[i] != NULL)
+	{
+		printf("%s ", head->com[i]);
+		i++;
+	}
+	printf("\n\n");
 }

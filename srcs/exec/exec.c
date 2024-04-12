@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 05:28:42 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/05 03:49:00 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/11 05:13:36 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ void	ft_exec(t_params **para, char **env)
 	t_params	*head;
 	pid_t		pid;
 	char		*bin;
-	int			out_fd;
+	//int			out_fd;
 	int			save_out;
 
 	pid = fork();
 	head = *para;
 	save_out = dup(STDOUT_FILENO);
 
-	if (head->out_red != none)
-	{
-		out_fd = open(head->output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		dup2(out_fd, STDOUT_FILENO);
-		close(out_fd);
-	}
+	// if (head->out_red != none)
+	// {
+	// 	out_fd = open(head->output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	// 	dup2(out_fd, STDOUT_FILENO);
+	// 	close(out_fd);
+	// }
 	if (pid == 0)
 	{
 		bin = ft_strjoin("/bin/", head->com[0]);

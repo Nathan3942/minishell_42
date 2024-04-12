@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:51:36 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/05 04:58:45 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/12 05:20:06 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,13 @@ typedef enum e_operator {
 	sortie2,
 }		t_operator;
 
+typedef struct s_put {
+	char *input;
+	char *output;
+}	t_put;
+
 typedef struct s_params {
 	char	**com;
-	int		nbcom;
-	char	**input;
-	char	*output;
 	t_operator	inp_red;
 	t_operator	out_red;
 	struct s_params *next;
@@ -81,12 +83,12 @@ int		cmd_echo(t_params *para);
 int		cmd_pwd(void);
 
 //parsing
-void	set_para(t_params **param, char *input, t_env **env);
-void	set_output(t_params **para);
-void	set_input(t_params **para);
+void	set_para(t_params **param, char *input, t_env **env, t_put **put);
+void	set_put(t_put **put, t_params **para);
 char	*heredoc(char *exit);
-void	if_del(t_params **para);
+void	ft_doc(t_params **para);
 void	set_var(t_params **para, t_env **env);
+void	set_enum(t_params **para);
 
 //exec
 void	ft_exec(t_params **para, char **env);
@@ -94,7 +96,8 @@ void	ft_exec(t_params **para, char **env);
 //utils
 char    *clean_input(char *raw_input);
 t_env	*set_env(char **env);
-void	print_all(t_params **para, t_env **env);
+void	print_all(t_params **para, t_env **env, t_put **put);
+void	print_com(t_params **para);
 char	*recherche_env(char *str, t_env **env);
 
 
