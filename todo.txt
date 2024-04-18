@@ -1,0 +1,20 @@
+Parsing :
+
+Garder que la commande et argument OK
+Set les redirection OK
+Set input output OK
+Variable env OK (ne pas faire si '')
+Cote et double cote
+
+Faire salit perso pour quote et red
+Corriger heredoc pour variable
+
+
+
+Echo "  papa$PWD  kaka  $USER"
+
+cat fichier1.txt fichier2.txt |grep "'mot cles'">>resultats.txt
+2
+
+Ctrl +d
+Ctrl alt +i

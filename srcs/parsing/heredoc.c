@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 04:04:52 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/12 04:13:08 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/16 02:05:15 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 char	*heredoc(char *exit)
 {
-    char    *doctmp;
+	char	*doctmp;
 	char	*doc;
-	
-    doctmp = NULL;
-    while (1)
+
+	doctmp = NULL;
+	while (1)
 	{
 		doc = readline("heredoc> ");
-        if (ft_strstr(doc, exit) == doc && ft_strlen(doc) == ft_strlen(exit))
-            break ;
-        doctmp = ft_strjoin_nl(doctmp, doc);
+		if (ft_strstr(doc, exit) == doc && ft_strlen(doc) == ft_strlen(exit))
+			break ;
+		doctmp = ft_strjoin_nl(doctmp, doc);
 	}
 	return (doctmp);
 }
@@ -37,7 +37,7 @@ void	ft_doc(t_params **para)
 
 	i = 0;
 	head = *para;
-    exit = NULL;
+	exit = NULL;
 	if (head->inp_red == entre2)
 	{	
 		while (head->com[i] != NULL)

@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:51:36 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/12 05:20:06 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:59:52 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,21 @@ typedef enum e_operator {
 }		t_operator;
 
 typedef struct s_put {
-	char *input;
-	char *output;
+	char	*input;
+	char	*output;
 }	t_put;
 
 typedef struct s_params {
-	char	**com;
-	t_operator	inp_red;
-	t_operator	out_red;
-	struct s_params *next;
-}           t_params;
+	char			**com;
+	t_operator		inp_red;
+	t_operator		out_red;
+	struct s_params	*next;
+}			t_params;
 
 typedef struct s_env {
-	char	*env_name;
-	char	*env_value;
-	struct s_env *next;
+	char			*env_name;
+	char			*env_value;
+	struct s_env	*next;
 }			t_env;
 
 //cmd
@@ -89,16 +89,22 @@ char	*heredoc(char *exit);
 void	ft_doc(t_params **para);
 void	set_var(t_params **para, t_env **env);
 void	set_enum(t_params **para);
+char	**set_cote(char **input);
+char	**split_para(char *input);
 
 //exec
 void	ft_exec(t_params **para, char **env);
 
 //utils
-char    *clean_input(char *raw_input);
+char	*clean_input(char *raw_input);
 t_env	*set_env(char **env);
 void	print_all(t_params **para, t_env **env, t_put **put);
 void	print_com(t_params **para);
 char	*recherche_env(char *str, t_env **env);
+int		strchr1x(char *input, char c);
+int		ft_strchr2x(char **str, char c, int i);
+char	*ft_strjoin_sp(char const *s1, char *s2);
+char	**split_var(char *str);
 
 
 #endif

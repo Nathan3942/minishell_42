@@ -6,30 +6,25 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:11:22 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/12 05:58:24 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:04:15 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	count_com(t_params **para)
+int	count_com(t_params *para, t_put *put)
 {
-	t_params	*head;
 	int			i;
 	int			z;
 
-	head = *para;
 	i = 0;
 	z = 0;
-	while (head->com[i] != NULL)
+	while (para->com[i] != NULL)
 	{
-		if (head->com[i][0] != '<' && head->com[i][0] != '>')
+		if (para->com[i][0] != '<' && para->com[i][0] != '>')
 		{
-			if (i == 0)
-				break ;
-			if (head->com[i - 1][0] != '<' && head->com[i - 1][0] != '>')
-		 		z++;
-			if (head->com[i - 1][0] == '<' && head->com[i - 1][1] != '<')
+			if (ft_strstrbool(para->com[i], put->input) == 1
+				&& ft_strstrbool(para->com[i], put->output) == 1)
 				z++;
 		}
 		i++;
@@ -37,30 +32,57 @@ int	count_com(t_params **para)
 	return (z);
 }
 
-char	**set_com(t_params **para)
+// char	**set_com(t_params **para, int len)
+// {
+// 	t_params	*head;
+// 	char		**com;
+// 	int			i;
+// 	int			z;
+
+// 	head = *para;
+// 	i = 1;
+// 	z = 1;
+// 	com = (char **)malloc ((len + 1) * sizeof(char *));
+// 	if (head->com[0][0] != '<' && head->com[0][0] != '>')
+// 			com[0] = ft_strdup(head->com[0]);
+// 	while (head->com[i] != NULL)
+// 	{
+// 		if (head->com[i][0] != '<' && head->com[i][0] != '>')
+// 		{
+// 			if (head->com[i - 1][0] != '>' && head->com[i - 1][0] != '<')
+// 			{
+// 				com[z] = ft_strdup(head->com[i]);
+// 				z++;
+// 			}
+// 			if (head->com[i - 1][0] == '<' && head->com[i - 1][1] == '<')
+// 			{
+// 				com[z] = ft_strdup(head->com[i]);
+// 				z++;
+// 			}
+// 		}
+// 		i++;
+// 	}
+// 	com[z] = NULL;
+// 	return (com);
+// }
+
+char	**set_com(t_params *para, int len, t_put *put)
 {
-	t_params	*head;
 	char		**com;
 	int			i;
 	int			z;
 
-	head = *para;
-	i = 1;
-	z = 1;
-	if (head->com[0][0] != '<' && head->com[0][0] != '>')
-			com[0] = ft_strdup(head->com[0]);
-	while (head->com[i] != NULL)
+	com = (char **)malloc ((len + 1) * sizeof(char *));
+	i = 0;
+	z = 0;
+	while (para->com[i] != NULL)
 	{
-		if (head->com[i][0] != '<' && head->com[i][0] != '>')
+		if (para->com[i][0] != '<' && para->com[i][0] != '>')
 		{
-			if (head->com[i - 1][0] != '>' && head->com[i - 1][0] != '<')
+			if (ft_strstrbool(para->com[i], put->input) == 1
+				&& ft_strstrbool(para->com[i], put->output) == 1)
 			{
-				com[z] = ft_strdup(head->com[i]);
-		 		z++;
-			}
-			if (head->com[i - 1][0] == '<' && head->com[i - 1][1] == '<')
-			{
-				com[z++] = ft_strdup(head->com[i]);
+				com[z] = ft_strdup(para->com[i]);
 				z++;
 			}
 		}
@@ -70,22 +92,18 @@ char	**set_com(t_params **para)
 	return (com);
 }
 
-void	refactor_com(t_params **para, char **input)
+void	refactor_com(t_params *para, t_put *put)
 {
-	t_params	*head;
 	char		**com;
 	int			z;
 
 	z = 0;
-	head = *para;
-	while (head != NULL)
+	while (para != NULL)
 	{
-		z = count_com(para);
-		com = (char **)malloc ((z + 1) * sizeof(char *));
-		com = set_com(para);
-		head->com = com;
-		head = head->next;
-		*para = head;
+		z = count_com(para, put);
+		com = set_com(para, z, put);
+		para->com = com;
+		para = para->next;
 	}
 }
 
@@ -93,31 +111,24 @@ void	init_com(t_params **para, char **com, t_put **put, t_env **env)
 {
 	t_params	*head;
 	int			i;
-	int			z;
 
 	i = 0;
-	z = 0;
 	head = *para;
 	while (com[i] != NULL && com[i][0] != '|')
-	{
-	 	z++;
 		i++;
-	}
-	head->com = (char **)malloc ((z + 1) * sizeof(char *));
+	head->com = (char **)malloc ((i + 1) * sizeof(char *));
 	i = 0;
-	z = 0;
 	while (com[i] != NULL && com[i][0] != '|')
 	{
-		head->com[z] = ft_strdup(com[i]);
-		 	z++;
+		head->com[i] = ft_strdup(com[i]);
 		i++;
 	}
-	head->com[z] = NULL;
+	head->com[i] = NULL;
 	set_put(put, para);
-	set_var(para, env);
 	set_enum(para);
-	//
-	print_com(para);
+	ft_doc(para);
+	set_var(para, env);
+	//print_com(para);
 }
 
 void	set_para(t_params **param, char *input, t_env **env, t_put **put)
@@ -127,7 +138,7 @@ void	set_para(t_params **param, char *input, t_env **env, t_put **put)
 	int			i;
 
 	para = *param;
-	inp_sep = ft_split(input, ' ');
+	inp_sep = split_para(input);
 	init_com(&para, inp_sep, put, env);
 	para->next = NULL;
 	i = 0;
@@ -135,7 +146,6 @@ void	set_para(t_params **param, char *input, t_env **env, t_put **put)
 	{
 		if (inp_sep[i][0] == '|')
 		{
-			ft_doc(&para);
 			para->next = (t_params *)malloc (sizeof(t_params));
 			para = para->next;
 			para->next = NULL;
@@ -143,7 +153,7 @@ void	set_para(t_params **param, char *input, t_env **env, t_put **put)
 		}
 		i++;
 	}
-	ft_doc(&para);
-	refactor_com(&para, inp_sep);
+	para = *param;
+	refactor_com(para, *put);
 	return ;
 }

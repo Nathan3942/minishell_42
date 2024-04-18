@@ -6,17 +6,41 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 04:45:25 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/05 05:04:21 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/16 05:41:05 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+// int	ft_strstrbool(const char *str, const char *re)
+// {
+// 	int	i;
+// 	int	z;
+
+// 	while (*str != '\0')
+// 	{
+// 		i = 0;
+// 		z = 0;
+// 		while (str[i] && re[z] && str[i] == re[z])
+// 		{
+// 			z++;
+// 			i++;
+// 		}
+// 		if (re[z] == '\0' && str[i] == '\0')
+// 			return (0);
+// 		str++;
+// 	}
+// 	return (1);
+// }
+
 
 int	ft_strstrbool(const char *str, const char *re)
 {
 	int	i;
 	int	z;
 
+	if (!str || !re)
+		return (1);
 	while (*str != '\0')
 	{
 		i = 0;

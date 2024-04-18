@@ -1,18 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_nl.c                                    :+:      :+:    :+:   */
+/*   quote_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 05:57:25 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/16 07:45:39 by njeanbou         ###   ########.fr       */
+/*   Created: 2024/04/16 12:26:07 by njeanbou          #+#    #+#             */
+/*   Updated: 2024/04/16 12:28:50 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-char	*ft_strjoin_nl(char const *s1, char *s2)
+int	strchr1x(char *input, char c)
+{
+	int	i;
+
+	i = 0;
+	while (input[i] != '\0')
+	{
+		if (input[i] == c)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	ft_strchr2x(char **str, char c, int i)
+{
+	int	count;
+	int	z;
+
+	count = 0;
+	while (str[i] != NULL)
+	{
+		z = 0;
+		while (str[i][z] != '\0')
+		{
+			if (str[i][z] == c)
+				count++;
+			if (count == 2)
+				return (0);
+			z++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+char	*ft_strjoin_sp(char const *s1, char *s2)
 {
 	char	*new;
 	int		i;
@@ -30,7 +66,7 @@ char	*ft_strjoin_nl(char const *s1, char *s2)
 		new[i] = s1[i];
 		i++;
 	}
-	new[i++] = '\n';
+	new[i++] = ' ';
 	while (s2[j])
 	{
 		new[i] = s2[j];
