@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 03:21:39 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/12 05:21:07 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:55:21 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	print_com(t_params **para)
 	printf("\nPreCmd : \n\n");
 	while (head->com[i] != NULL)
 	{
-		printf("%s ", head->com[i]);
+		printf("%s\n", head->com[i]);
 		i++;
 	}
 	printf("\n\n");

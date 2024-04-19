@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 04:41:08 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/18 17:11:43 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:06:09 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ static void	set_var_beg(t_params **para, t_env **env)
 
 	var = NULL;
 	headp = *para;
-	heade = *env;
 	i = 0;
 	while (headp->com[i] != NULL)
 	{	
 		if (headp->com[i][0] == '$')
 		{
-			var = recherche_env(headp->com[i], &heade);
+			var = recherche_env(headp->com[i], env);
 			if (var != NULL)
 			{
 				free(headp->com[i]);
@@ -64,6 +63,10 @@ static char	*mid_var(char *str, t_env **env)
 	int		i;
 
 	split_str = split_var(str);
+	///////
+	i = 0;
+	while (split_str[i] != NULL)
+		printf("%s\n", split_str[i++]);
 	split_str = mid_var_env(split_str, env);
 	i = 0;
 	var = NULL;
@@ -106,6 +109,6 @@ static void	set_var_mid(t_params **para, t_env **env)
 
 void	set_var(t_params **para, t_env **env)
 {
-	set_var_beg(para, env);
+	//set_var_beg(para, env);
 	set_var_mid(para, env);
 }
