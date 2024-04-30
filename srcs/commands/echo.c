@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:25:16 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/03/27 14:52:21 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/30 11:26:57 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	print_echo(char *str)
 		{
 			if (str[i + 1])
 			{
-				ft_putchar_fd(str[i + 2], STDOUT_FILENO);
-				i += 3;
+				ft_putchar_fd(str[i], STDOUT_FILENO);
+				i += 2;
 			}
 			else
 			{
@@ -45,17 +45,17 @@ int	cmd_echo(t_params *para)
 	int	i;
 
 	i = 1;
-	if (para->has_n)
+	if (ft_strstrbool(para->com[1], "-n") == 0)
 		i++;
-	while (statement->argv[i] && i != statement->argc)
+	while (para->com[i] != NULL)
 	{
-		print_echo(statement->argv[i]);
-		if (!statement->argv[i + 1] || statement->operator != RDR_INPUT)
+		print_echo(para->com[i]);
+		if (!para->com[i + 1])
 			break ;
 		ft_putchar_fd(' ', STDOUT_FILENO);
 		i++;
 	}
-	if (!para->has_n)
+	if (ft_strstrbool(para->com[1], "-n") != 0)
 		write(STDOUT_FILENO, "\n", 1);
 	return (EXIT_SUCCESS);
 }

@@ -3,12 +3,12 @@ Parsing :
 Garder que la commande et argument OK
 Set les redirection OK
 Set input output OK
-Variable env OK (ne pas faire si '')
+Variable env OK (ne pas faire si '') !var appendue sans "
 Cote et double cote
 
 Faire salit perso pour quote et red
 Corriger heredoc pour variable
-
+Voir problème sss$KAKA
 
 
 Echo "  papa$PWD  kaka  $USER"
@@ -18,3 +18,21 @@ cat fichier1.txt fichier2.txt |grep "'mot cles'">>resultats.txt
 
 Ctrl +d
 Ctrl alt +i
+
+
+Cd ..
+
+PWD=/Users/njeanbou/42/Projet
+OLDPWD=/Users/njeanbou/42/Projet/minishell_42
+
+
+
+
+todooooo
+
+Cmd :
+Export / unset / env / exit (info de ou stocker pour le env et le export)(idée ajouter une variable pour savoir si la variable est exporté et donc accessible dans les autre processus)
+
+Gerer les leaks (instruments jsp comment ça marche)
+
+Manger video shell pr capter le tout

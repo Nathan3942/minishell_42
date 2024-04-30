@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:11:22 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/19 15:04:36 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/30 10:19:55 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,40 +31,6 @@ int	count_com(t_params *para, t_put *put)
 	}
 	return (z);
 }
-
-// char	**set_com(t_params **para, int len)
-// {
-// 	t_params	*head;
-// 	char		**com;
-// 	int			i;
-// 	int			z;
-
-// 	head = *para;
-// 	i = 1;
-// 	z = 1;
-// 	com = (char **)malloc ((len + 1) * sizeof(char *));
-// 	if (head->com[0][0] != '<' && head->com[0][0] != '>')
-// 			com[0] = ft_strdup(head->com[0]);
-// 	while (head->com[i] != NULL)
-// 	{
-// 		if (head->com[i][0] != '<' && head->com[i][0] != '>')
-// 		{
-// 			if (head->com[i - 1][0] != '>' && head->com[i - 1][0] != '<')
-// 			{
-// 				com[z] = ft_strdup(head->com[i]);
-// 				z++;
-// 			}
-// 			if (head->com[i - 1][0] == '<' && head->com[i - 1][1] == '<')
-// 			{
-// 				com[z] = ft_strdup(head->com[i]);
-// 				z++;
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	com[z] = NULL;
-// 	return (com);
-// }
 
 char	**set_com(t_params *para, int len, t_put *put)
 {
@@ -131,7 +97,7 @@ void	init_com(t_params **para, char **com, t_put **put, t_env **env)
 	print_com(para);
 }
 
-void	set_para(t_params **param, char *input, t_env **env, t_put **put)
+int	set_para(t_params **param, char *input, t_env **env, t_put **put)
 {
 	char		**inp_sep;
 	t_params	*para;
@@ -139,11 +105,8 @@ void	set_para(t_params **param, char *input, t_env **env, t_put **put)
 
 	para = *param;
 	inp_sep = split_para(input);
-	/////////////
-	i = 0;
-	while (inp_sep[i] != NULL)
-		printf("%s\n",inp_sep[i++]);
-	/////////////
+	if (ft_error(inp_sep) != 0)
+		return (ft_error(inp_sep));
 	init_com(&para, inp_sep, put, env);
 	para->next = NULL;
 	i = 0;
@@ -160,5 +123,5 @@ void	set_para(t_params **param, char *input, t_env **env, t_put **put)
 	}
 	para = *param;
 	refactor_com(para, *put);
-	return ;
+	return (0);
 }

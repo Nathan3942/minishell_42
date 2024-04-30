@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 04:41:08 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/19 16:06:09 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/30 13:36:44 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	set_var_beg(t_params **para, t_env **env)
 		if (headp->com[i][0] == '$')
 		{
 			var = recherche_env(headp->com[i], env);
+			if (var[0] == ';' && ft_strlen(var) == 1)
+				var = "";
 			if (var != NULL)
 			{
 				free(headp->com[i]);
@@ -48,11 +50,15 @@ static char	**mid_var_env(char **split_str, t_env **env)
 		if (split_str[i][0] == '$')
 		{
 			var = recherche_env(split_str[i], env);
-			free(split_str[i]);
-			split_str[i] = ft_strdup(var);
+			if (var != NULL)
+			{
+				free(split_str[i]);
+				split_str[i] = ft_strdup(var);
+			}
 		}
 		i++;
 	}
+	split_str[i] = NULL;
 	return (split_str);
 }
 
@@ -63,10 +69,6 @@ static char	*mid_var(char *str, t_env **env)
 	int		i;
 
 	split_str = split_var(str);
-	///////
-	i = 0;
-	while (split_str[i] != NULL)
-		printf("%s\n", split_str[i++]);
 	split_str = mid_var_env(split_str, env);
 	i = 0;
 	var = NULL;
@@ -75,31 +77,31 @@ static char	*mid_var(char *str, t_env **env)
 		var = ft_strjoin(var, split_str[i]);
 		i++;
 	}
+	var = clean_var(var);
 	return (var);
 }
 
 static void	set_var_mid(t_params **para, t_env **env)
 {
-	t_params	*headp;
 	char		*var;
 	int			i;
 	int			z;
 
-	headp = *para;
 	var = NULL;
 	i = 0;
-	while (headp->com[i] != NULL)
+	while ((*para)->com[i] != NULL)
 	{
+		if ((*para)->com[i][0] == '\'')
+			break ;
 		z = 0;
-		while (headp->com[i][z] != '\0')
+		while ((*para)->com[i][z] != '\0')
 		{
-			if (headp->com[i][z] == '\'')
-				break ;
-			if (headp->com[i][z] == '$')
+			if ((*para)->com[i][z] == '$')
 			{
-				var = mid_var(headp->com[i], env);
-				free(headp->com[i]);
-				headp->com[i] = var;
+				var = mid_var((*para)->com[i], env);
+				free((*para)->com[i]);
+				(*para)->com[i] = var;
+				z = 0;
 			}
 			z++;
 		}
@@ -109,6 +111,21 @@ static void	set_var_mid(t_params **para, t_env **env)
 
 void	set_var(t_params **para, t_env **env)
 {
-	//set_var_beg(para, env);
+	int	i;
+	int	z;
+
+	i = 0;
+	z = 0;
+	while ((*para)->com[i] != NULL)
+	{
+		if ((*para)->com[i][z] == '\'')
+			break ;
+		if ((*para)->com[i][z] == '$')
+		{
+			if (count_wd_var((*para)->com[i]) == 1)
+				set_var_beg(para, env);
+		}
+		i++;
+	}
 	set_var_mid(para, env);
 }

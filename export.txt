@@ -1,0 +1,3 @@
+export change l'environement pour les processuce fils et le shell
+
+env change une variable d'environement pour une seul commande

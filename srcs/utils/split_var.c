@@ -6,36 +6,28 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:53:13 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/19 16:08:44 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:18:58 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	count_wd(char *str)
+int	count_wd_var(char *str)
 {
-	int		i;
-	int		len;
-	bool	var;
+	int	i;
+	int	len;
 
 	i = 0;
 	len = 0;
-	var = false;
+	if (ft_isalnum(str[0]) == 1)
+		len++;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '$' && var == false)
-		{
+		if (str[i] == '\"' || str[i] == ' ' || str[i] == '$' || str[i] == '\n')
 			len++;
-			var = true;
-		}
-		if ((str[i] == ' ' || str[i] == '\"' || str[i] == '\n') && var == true)
-		{
-			len++;
-			var = false;
-		}
 		i++;
 	}
-	return (++len);
+	return (len);
 }
 
 int	count_len(char *str, int *i, bool *var)
@@ -45,14 +37,19 @@ int	count_len(char *str, int *i, bool *var)
 	len = 0;
 	while (str[*i] != '\0')
 	{
-		if (str[*i] == '$' && (*var) == false)
+		if (str[*i] == '$' && (*var) == false && (*i) != 0)
 		{
 			(*var) = true;
 			break ;
 		}
-		if ((str[*i] == ' ' || str[*i] == '\"' || str[*i] == '\n') && (*var) == true)
+		if ((str[*i] == ' ' || str[*i] == '\"' || str[*i] == '\n')
+			&& (*var) == true)
 		{
 			(*var) = false;
+			break ;
+		}
+		if (str[*i] == '$' && len != 0 && (*var) == true)
+		{
 			break ;
 		}
 		(*i)++;
@@ -102,7 +99,8 @@ char	**split_var(char *str)
 	char	**dest;
 	int		nb_wd;
 
-	nb_wd = count_wd(str);
+	nb_wd = count_wd_var(str);
+	printf("%d nb_wd\n", nb_wd);
 	dest = (char **)malloc ((nb_wd + 1) * sizeof(char *));
 	if (!dest)
 		return (0);

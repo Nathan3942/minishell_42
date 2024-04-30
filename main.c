@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:52:31 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/16 06:31:37 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:59:30 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*get_input(void)
 	char	*raw_input;
 	char	*input;
 
-	raw_input = readline("minishell: ");
+	raw_input = readline("minishell$ ");
 	input = clean_input(raw_input);
 	return (input);
 }
@@ -28,7 +28,15 @@ int	main(int argc, char **argv, char **env)
 	t_env		*lstenv;
 	t_put		*put;
 	char		*input;
+	int			error;
 
+	error = 0;
+	while (env[error] != NULL)
+	{
+		printf("%s\n", env[error]);
+		error++;
+	}
+	error = 0;
 	if (argc > 1 && argv[1] == NULL)
 		exit(EXIT_FAILURE);
 	lstenv = set_env(env);
@@ -39,13 +47,22 @@ int	main(int argc, char **argv, char **env)
 		put->input = NULL;
 		put->output = NULL;
 		input = get_input();
-		if (input == NULL)
-			break ;
-		add_history(input);
-		set_para(&para, input, &lstenv, &put);
-		print_all(&para, &lstenv, &put);
-		free(para);
+		if (ft_strstrbool(input, "exit") == 0)
+			exit(EXIT_SUCCESS);
+		printf("%s\n", input);
+		if (input != NULL)
+		{
+			add_history(input);
+			error = set_para(&para, input, &lstenv, &put);
+			if (error == 0)
+			{
+				print_all(&para, &lstenv, &put);
+				commande(&para, &lstenv, env);
+				free_all(&para, &put);
+			}
+			else
+				print_error(error);
+		}
 	}
 	return (0);
 }
-

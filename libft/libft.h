@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:24:19 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/05 04:48:53 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:42:19 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_list
 }							t_list;
 
 int		ft_isalnum(int c);
+int		ft_isalnumm(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
 int		ft_isdigit(int c);
@@ -33,6 +34,7 @@ int		ft_atoi(const char *str);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strstrbool(const char *str, const char *re);
+int		ft_strequal(const char *str, const char *re);
 
 size_t	ft_strlen(const char *str);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
@@ -54,14 +56,14 @@ char	*ft_strchr(const char *str, int c);
 char	*ft_strrchr(const char *str, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char *s2);
+char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strjoin_nl(char const *s1, char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_itoa(int n);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	**ft_split(char const *s, char c);
-char    *ft_strncpy(char *dest, const char *src, size_t n);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
 char	*ft_strstr(const char *str, const char *re);
 
 int		ft_lstsize(t_list *lst);

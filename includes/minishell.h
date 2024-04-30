@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:51:36 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/18 16:59:52 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:04:38 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,6 @@
 
 // CD CMD
 
-/*sert a determiner comment les commandes doivent etre traiter
-lors de l'analyse et l'execution*/
-// typedef struct s_data {
-// 	char    *com1;
-// 	char    *com2;
-// 	char    *red1;
-// 	char    *red2;
-// 	char    *input;
-// 	char    *output;
-// 	bool    has_n;
-// }           t_params;
-
 typedef enum e_operator {
 	none,
 	entre1,
@@ -75,15 +63,17 @@ typedef struct s_params {
 typedef struct s_env {
 	char			*env_name;
 	char			*env_value;
+	bool			is_exported;
 	struct s_env	*next;
 }			t_env;
 
 //cmd
 int		cmd_echo(t_params *para);
 int		cmd_pwd(void);
+int		cmd_cd(t_params *para, t_env **env);
 
 //parsing
-void	set_para(t_params **param, char *input, t_env **env, t_put **put);
+int		set_para(t_params **param, char *input, t_env **env, t_put **put);
 void	set_put(t_put **put, t_params **para);
 char	*heredoc(char *exit);
 void	ft_doc(t_params **para);
@@ -91,9 +81,17 @@ void	set_var(t_params **para, t_env **env);
 void	set_enum(t_params **para);
 char	**set_cote(char **input);
 char	**split_para(char *input);
+int		error_quote(char *str);
+int		count_quote(char *str, int *i);
+int		count_red(char *str, int *i);
+int		red_len(char *str, int *i);
+int		quote_len(char *str, int *i);
+int		ft_error(char **input);
+void	print_error(int error);
 
 //exec
 void	ft_exec(t_params **para, char **env);
+void	commande(t_params **para, t_env **env, char **envv);
 
 //utils
 char	*clean_input(char *raw_input);
@@ -105,6 +103,8 @@ int		strchr1x(char *input, char c);
 int		ft_strchr2x(char **str, char c, int i);
 char	*ft_strjoin_sp(char const *s1, char *s2);
 char	**split_var(char *str);
-
+int		count_wd_var(char *str);
+char	*clean_var(char *var);
+void	free_all(t_params **para, t_put **put);
 
 #endif

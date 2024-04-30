@@ -6,12 +6,24 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 05:28:42 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/11 05:13:36 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:12:12 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+
+void	commande(t_params **para, t_env **env, char **envv)
+{
+	if (ft_strstrbool((*para)->com[0], "echo") == 0)
+		cmd_echo(*para);
+	else if (ft_strstrbool((*para)->com[0], "pwd") == 0)
+		cmd_pwd();
+	else if (ft_strstrbool((*para)->com[0], "cd") == 0)
+		cmd_cd(*para, env);
+	else
+		ft_exec(para, envv);
+}
 
 void	ft_exec(t_params **para, char **env)
 {

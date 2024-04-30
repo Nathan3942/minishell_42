@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_isalnumm.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 12:21:53 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/30 11:54:08 by njeanbou         ###   ########.fr       */
+/*   Created: 2024/04/30 11:57:32 by njeanbou          #+#    #+#             */
+/*   Updated: 2024/04/30 14:55:05 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libc.h"
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+int	ft_isalnumm(int c)
 {
-	size_t	i;
-
-	i = 0;
-	if (size != 0)
-	{
-		while ((src[i] != '\0') && (i < (size - 1)))
-		{
-			dest[i] = src[i];
-			i++;
-		}
-		dest[i] = '\0';
-	}
-	return (ft_strlen(src));
+	if ((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122)
+		|| c == 46 || c == 45 || c == 36 || c == 61 || c == 47 || c == 92
+		|| c == 95 || c == 126)
+		return (1);
+	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:15:08 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/04 05:59:45 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/30 11:53:50 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new;
 	int		i;
@@ -30,7 +30,7 @@ char	*ft_strjoin(char const *s1, char *s2)
 		new[i] = s1[i];
 		i++;
 	}
-	while (s2[j])
+	while (s2[j] != '\0')
 	{
 		new[i] = s2[j];
 		i++;

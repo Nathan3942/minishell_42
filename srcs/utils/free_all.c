@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/27 15:29:32 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/30 11:54:57 by njeanbou         ###   ########.fr       */
+/*   Created: 2024/04/30 09:33:51 by njeanbou          #+#    #+#             */
+/*   Updated: 2024/04/30 12:03:42 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-char	*ft_strncpy(char *dest, const char *src, size_t n)
+void	free_para(t_params **para)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (i < n && src[i])
+	if ((*para) == NULL)
+		return ;
+	while ((*para)->com[i] != NULL)
 	{
-		dest[i] = src[i];
+		free((*para)->com[i]);
 		i++;
 	}
-	while (i < n)
-	{
-		dest[i] = '\0';
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	free((*para)->com);
+	free_para(&(*para)->next);
+	free((*para));
+}
+
+void	free_all(t_params **para, t_put **put)
+{
+	free_para(para);
+	if ((*put)->input != NULL)
+		free((*put)->input);
+	if ((*put)->output != NULL)
+		free((*put)->output);
+	free((*put));
 }

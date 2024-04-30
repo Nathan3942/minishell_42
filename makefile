@@ -6,13 +6,13 @@
 #    By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/02 04:50:58 by njeanbou          #+#    #+#              #
-#    Updated: 2024/04/08 04:22:41 by njeanbou         ###   ########.fr        #
+#    Updated: 2024/04/30 11:11:26 by njeanbou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = $(wildcard srcs/utils/*.c srcs/parsing/*.c srcs/exec/*.c main.c)
+SRCS = $(wildcard srcs/utils/*.c srcs/parsing/*.c srcs/exec/*.c srcs/commands/*.c main.c)
 
 OBJS = ${SRCS:.c=.o}
 

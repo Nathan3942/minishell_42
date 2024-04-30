@@ -6,65 +6,11 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:08:28 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/19 15:06:37 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:17:15 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	ft_isalnum(int c)
-{
-	if ((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122)
-		|| c == 46 || c == 45 || c == 36)
-		return (1);
-	return (0);
-}
-
-static int	count_quote(char *str, int *i)
-{
-	if (str[*i] == '\'')
-	{
-		(*i)++;
-		while (str[*i] != '\'')
-			(*i)++;
-		return (1);
-	}
-	if (str[*i] == '\"')
-	{
-		(*i)++;
-		while (str[*i] != '\"')
-			(*i)++;
-		return (1);
-	}
-	return (0);
-}
-
-static int	count_red(char *str, int *i)
-{
-	int	len;
-
-	len = 0;
-	if (str[*i] == '<')
-	{
-		(*i)++;
-		while (str[*i] == '<')
-			(*i)++;
-		return (1);
-	}
-	if (str[*i] == '>')
-	{
-		(*i)++;
-		while (str[*i] == '>')
-			(*i)++;
-		return (1);
-	}
-	if (str[*i] == '|')
-	{
-		(*i)++;
-		return (1);
-	}
-	return (0);
-}
 
 static int	count_word(char *str)
 {
@@ -73,12 +19,14 @@ static int	count_word(char *str)
 
 	i = 0;
 	len = 0;
+	if (error_quote(str) == -1)
+		return (-1);
 	while (str[i] != '\0')
 	{
-		if (ft_isalnum(str[i]) == 1)
+		if (ft_isalnumm(str[i]) == 1)
 		{
 			len++;
-			while (str[i] != '\0' && ft_isalnum(str[i]) == 1)
+			while (str[i] != '\0' && ft_isalnumm(str[i]) == 1)
 				i++;
 		}
 		len += count_quote(str, &i);
@@ -89,61 +37,6 @@ static int	count_word(char *str)
 	return (len);
 }
 
-static int	red_len(char *str, int *i)
-{
-	int	len;
-
-	len = 0;
-	if (str[*i] == '<')
-	{
-		while (str[*i] == '<')
-		{
-			len++;
-			(*i)++;
-		}
-		return (len);
-	}
-	else if (str[*i] == '>')
-	{
-		while (str[*i] == '>')
-		{
-			len++;
-			(*i)++;
-		}
-		return (len);
-	}
-	return (len);
-}
-
-static int	quote_len(char *str, int *i)
-{
-	int	len;
-
-	len = 0;
-	if (str[*i] == '\'')
-	{
-		(*i)++;
-		len++;
-		while (str[*i] != '\0' && str[*i] != '\'')
-		{
-			(*i)++;
-			len++;
-		}
-	}
-	else if (str[*i] == '\"')
-	{
-		(*i)++;
-		len++;
-		while (str[*i] != '\0' && str[*i] != '\"')
-		{
-			(*i)++;
-			len++;
-		}
-	}
-	(*i)++;
-	return (len + 1);
-}
-
 static int	count_len(char *str, int *i)
 {
 	int	len;
@@ -151,9 +44,9 @@ static int	count_len(char *str, int *i)
 	len = 0;
 	if (str[*i] == ' ')
 		(*i)++;
-	if (ft_isalnum(str[*i]) == 1)
+	if (ft_isalnumm(str[*i]) == 1)
 	{
-		while (str[*i] != '\0' && ft_isalnum(str[*i]) == 1)
+		while (str[*i] != '\0' && ft_isalnumm(str[*i]) == 1)
 		{
 			(*i)++;
 			len++;
@@ -213,7 +106,10 @@ char	**split_para(char *input)
 	int		nb_wd;
 
 	nb_wd = count_word(input);
+	if (nb_wd == -1)
+		return (NULL);
 	dest = (char **)malloc ((nb_wd + 1) * sizeof(char *));
 	dest = split_arg(input, dest, nb_wd);
+	free(input);
 	return (dest);
 }

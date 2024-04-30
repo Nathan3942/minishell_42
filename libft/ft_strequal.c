@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strequal.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 12:21:53 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/30 11:54:08 by njeanbou         ###   ########.fr       */
+/*   Created: 2024/04/30 14:40:35 by njeanbou          #+#    #+#             */
+/*   Updated: 2024/04/30 14:42:00 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+int	ft_strequal(const char *str, const char *re)
 {
-	size_t	i;
+	int	i;
+	int	z;
 
+	if (!str || !re)
+		return (1);
 	i = 0;
-	if (size != 0)
+	z = 0;
+	while (str[i] && re[z] && str[i] == re[z])
 	{
-		while ((src[i] != '\0') && (i < (size - 1)))
-		{
-			dest[i] = src[i];
-			i++;
-		}
-		dest[i] = '\0';
+		z++;
+		i++;
 	}
-	return (ft_strlen(src));
+	if (re[z] == '\0' && ft_strlen(str) == ft_strlen(re))
+		return (0);
+	return (1);
 }
