@@ -1,0 +1,73 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/02 17:10:28 by njeanbou          #+#    #+#             */
+/*   Updated: 2024/05/02 18:09:06 by njeanbou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static int	print_export(t_env **env)
+{
+	t_env	*head;
+
+	head = *env;
+	while (head != NULL)
+	{
+		if (head->is_exported == true && head->env_value != NULL)
+			printf("declare -x %s=\"%s\"\n", head->env_name, head->env_value);
+		else if (head->is_exported == true && head->env_value == NULL)
+			printf("declare -x %s\n", head->env_name);
+		head = head->next;
+	}
+	return (EXIT_SUCCESS);
+}
+
+static int	add_export(char *var, t_env **env)
+{
+	t_env	*new;
+	t_env	*head;
+	char	**line;
+	bool	new_var;
+
+	head = *env;
+	new_var = false;
+	line = ft_split(var, '=');
+	new = new_node(line[0], line[1]);
+	while (head != NULL)
+	{
+		if (ft_strequal(head->env_name, line[0]) == 0)
+		{
+			free(head->env_value);
+			head->env_value = ft_strdup(line[1]);
+			new_var = true;
+		}
+		head = head->next;
+	}
+	if (new_var == false)
+		ft_lstadd_back_env(env, new);
+	return (EXIT_SUCCESS);
+}
+
+int	cmd_export(t_params *para, t_env **env)
+{
+	int	i;
+
+	i = 1;
+	if (para->com[1] == NULL)
+		return (print_export(env));
+	else if (para->com[1] != NULL)
+	{
+		while (para->com[i] != NULL)
+		{
+			add_export(para->com[i], env);
+			i++;
+		}
+	}
+	return (EXIT_SUCCESS);
+}

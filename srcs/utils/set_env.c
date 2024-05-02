@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 07:01:12 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/17 14:21:31 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/02 17:07:38 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_env	*new_node(char *env_name, char *env_value)
 	new = (t_env *)malloc (sizeof(t_env));
 	new->env_name = env_name;
 	new->env_value = env_value;
+	new->is_exported = true;
 	new->next = NULL;
 	return (new);
 }

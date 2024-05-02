@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 13:24:06 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/02 17:30:14 by njeanbou         ###   ########.fr       */
+/*   Created: 2024/05/02 19:12:04 by njeanbou          #+#    #+#             */
+/*   Updated: 2024/05/02 19:17:45 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-t_list	*ft_lstlast(t_list *lst)
+int	cmd_env(t_env **env)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	t_env	*head;
+
+	head = *env;
+	while (head != NULL)
+	{
+		ft_putstr_fd(head->env_name, STDOUT_FILENO);
+		ft_putchar_fd('=', STDOUT_FILENO);
+		ft_putstr_fd(head->env_value, STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		head = head->next;
+	}
+	return (EXIT_SUCCESS);
 }

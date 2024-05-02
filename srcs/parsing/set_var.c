@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 04:41:08 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/30 13:36:44 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:58:00 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	set_var_beg(t_params **para, t_env **env)
 {
 	t_params	*headp;
-	t_env		*heade;
 	char		*var;
 	int			i;
 

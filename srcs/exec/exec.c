@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 05:28:42 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/30 17:12:12 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/02 19:17:54 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,18 @@
 
 void	commande(t_params **para, t_env **env, char **envv)
 {
-	if (ft_strstrbool((*para)->com[0], "echo") == 0)
+	if (ft_strequal((*para)->com[0], "echo") == 0)
 		cmd_echo(*para);
-	else if (ft_strstrbool((*para)->com[0], "pwd") == 0)
+	else if (ft_strequal((*para)->com[0], "pwd") == 0)
 		cmd_pwd();
-	else if (ft_strstrbool((*para)->com[0], "cd") == 0)
+	else if (ft_strequal((*para)->com[0], "cd") == 0)
 		cmd_cd(*para, env);
+	else if (ft_strequal((*para)->com[0], "export") == 0)
+		cmd_export(*para, env);
+	else if (ft_strequal((*para)->com[0], "unset") == 0)
+		cmd_unset(*para, env);
+	else if (ft_strequal((*para)->com[0], "env") == 0)
+		cmd_env(env);
 	else
 		ft_exec(para, envv);
 }

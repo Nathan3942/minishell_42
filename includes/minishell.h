@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:51:36 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/30 17:04:38 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/02 19:17:33 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ typedef struct s_env {
 int		cmd_echo(t_params *para);
 int		cmd_pwd(void);
 int		cmd_cd(t_params *para, t_env **env);
+int		cmd_export(t_params *para, t_env **env);
+int		cmd_unset(t_params *para, t_env **env);
+int		cmd_env(t_env **env);
 
 //parsing
 int		set_para(t_params **param, char *input, t_env **env, t_put **put);
@@ -96,6 +99,7 @@ void	commande(t_params **para, t_env **env, char **envv);
 //utils
 char	*clean_input(char *raw_input);
 t_env	*set_env(char **env);
+t_env	*new_node(char *env_name, char *env_value);
 void	print_all(t_params **para, t_env **env, t_put **put);
 void	print_com(t_params **para);
 char	*recherche_env(char *str, t_env **env);
@@ -106,5 +110,7 @@ char	**split_var(char *str);
 int		count_wd_var(char *str);
 char	*clean_var(char *var);
 void	free_all(t_params **para, t_put **put);
+t_env	*ft_lstlast_env(t_env *lst);
+void	ft_lstadd_back_env(t_env **lst, t_env *new);
 
 #endif

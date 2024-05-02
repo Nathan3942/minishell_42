@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:52:31 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/30 16:59:30 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/02 17:10:09 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	main(int argc, char **argv, char **env)
 	char		*input;
 	int			error;
 
-	error = 0;
-	while (env[error] != NULL)
-	{
-		printf("%s\n", env[error]);
-		error++;
-	}
+	// error = 0;
+	// while (env[error] != NULL)
+	// {
+	// 	printf("%s\n", env[error]);
+	// 	error++;
+	// }
 	error = 0;
 	if (argc > 1 && argv[1] == NULL)
 		exit(EXIT_FAILURE);
