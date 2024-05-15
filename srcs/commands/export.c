@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:10:28 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/02 18:09:06 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/15 20:55:56 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,27 @@ static int	print_export(t_env **env)
 	return (EXIT_SUCCESS);
 }
 
+static void	mod_var(t_env *head, char **line, bool *new_var)
+{
+	while (head != NULL)
+	{
+		if (ft_strequal(head->env_name, line[0]) == 0
+			&& head->is_exported == true)
+		{
+			free(head->env_value);
+			head->env_value = ft_strdup(line[1]);
+			(*new_var) = true;
+		}
+		if (ft_strequal(head->env_name, line[0]) == 0
+			&& head->is_exported == false)
+		{
+			head->is_exported = true;
+			(*new_var) = true;
+		}
+		head = head->next;
+	}
+}
+
 static int	add_export(char *var, t_env **env)
 {
 	t_env	*new;
@@ -38,17 +59,8 @@ static int	add_export(char *var, t_env **env)
 	head = *env;
 	new_var = false;
 	line = ft_split(var, '=');
-	new = new_node(line[0], line[1]);
-	while (head != NULL)
-	{
-		if (ft_strequal(head->env_name, line[0]) == 0)
-		{
-			free(head->env_value);
-			head->env_value = ft_strdup(line[1]);
-			new_var = true;
-		}
-		head = head->next;
-	}
+	new = new_node(line[0], line[1], true);
+	mod_var(head, line, &new_var);
 	if (new_var == false)
 		ft_lstadd_back_env(env, new);
 	return (EXIT_SUCCESS);

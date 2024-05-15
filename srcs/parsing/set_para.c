@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:11:22 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/30 10:19:55 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:32:25 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	init_com(t_params **para, char **com, t_put **put, t_env **env)
 	set_enum(para);
 	ft_doc(para);
 	set_var(para, env);
+	set_varbis(para, env);
 	print_com(para);
 }
 

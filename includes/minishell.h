@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:51:36 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/02 19:17:33 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/15 20:09:41 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int		red_len(char *str, int *i);
 int		quote_len(char *str, int *i);
 int		ft_error(char **input);
 void	print_error(int error);
+void	set_varbis(t_params **para, t_env **env);
 
 //exec
 void	ft_exec(t_params **para, char **env);
@@ -99,7 +100,7 @@ void	commande(t_params **para, t_env **env, char **envv);
 //utils
 char	*clean_input(char *raw_input);
 t_env	*set_env(char **env);
-t_env	*new_node(char *env_name, char *env_value);
+t_env	*new_node(char *env_name, char *env_value, bool export);
 void	print_all(t_params **para, t_env **env, t_put **put);
 void	print_com(t_params **para);
 char	*recherche_env(char *str, t_env **env);
