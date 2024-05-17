@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:51:36 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/15 20:09:41 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:56:13 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int		cmd_cd(t_params *para, t_env **env);
 int		cmd_export(t_params *para, t_env **env);
 int		cmd_unset(t_params *para, t_env **env);
 int		cmd_env(t_env **env);
+void	cmd_exit(t_params **para, t_put **put, t_env **env);
 
 //parsing
 int		set_para(t_params **param, char *input, t_env **env, t_put **put);
@@ -95,7 +96,7 @@ void	set_varbis(t_params **para, t_env **env);
 
 //exec
 void	ft_exec(t_params **para, char **env);
-void	commande(t_params **para, t_env **env, char **envv);
+void	commande(t_params **para, t_env **env, char **envv, t_put **put);
 
 //utils
 char	*clean_input(char *raw_input);

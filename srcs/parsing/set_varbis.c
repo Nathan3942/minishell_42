@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:32:47 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/15 21:03:18 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/17 14:51:18 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	set_varbis(t_params **para, t_env **env)
 		if ((*para)->com[0][i] == '=')
 		{
 			varbis((*para)->com[0], env);
-			(*para)->com[0] = NULL;
+			(*para)->com[0][0] = '\0';
 			break ;
 		}
 		i++;

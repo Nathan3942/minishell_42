@@ -1,43 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 09:33:51 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/17 13:50:45 by njeanbou         ###   ########.fr       */
+/*   Created: 2024/05/17 12:41:27 by njeanbou          #+#    #+#             */
+/*   Updated: 2024/05/17 14:21:25 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_para(t_params **para)
+void	free_env(t_env **env)
 {
-	int	i;
-
-	i = 0;
-	if (!(*para))
+	if ((*env) != NULL)
 	{
-		free((*para));
-		return ;
+		free((*env)->env_name);
+		free((*env)->env_value);
+		free_env(&(*env)->next);
 	}
-	while ((*para)->com[i] != NULL)
-	{
-		free((*para)->com[i]);
-		i++;
-	}
-	free_para(&(*para)->next);
-	free((*para)->com);
-	free((*para));
+	return ;
 }
 
-void	free_all(t_params **para, t_put **put)
+void	cmd_exit(t_params **para, t_put **put, t_env **env)
 {
-	free_para(para);
-	if ((*put)->input != NULL)
-		free((*put)->input);
-	if ((*put)->output != NULL)
-		free((*put)->output);
-	free((*put));
+	printf("lalalaala\n");
+	free_all(para, put);
+	printf("lololo");
+	free_env(env);
+	printf("kakakaa");
+	exit(EXIT_SUCCESS);
 }

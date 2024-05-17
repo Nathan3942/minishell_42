@@ -6,14 +6,14 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 05:28:42 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/02 19:17:54 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/17 13:00:28 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 
-void	commande(t_params **para, t_env **env, char **envv)
+void	commande(t_params **para, t_env **env, char **envv, t_put **put)
 {
 	if (ft_strequal((*para)->com[0], "echo") == 0)
 		cmd_echo(*para);
@@ -27,6 +27,8 @@ void	commande(t_params **para, t_env **env, char **envv)
 		cmd_unset(*para, env);
 	else if (ft_strequal((*para)->com[0], "env") == 0)
 		cmd_env(env);
+	else if (ft_strequal((*para)->com[0], "exit") == 0)
+		cmd_exit(para, put, env);
 	else
 		ft_exec(para, envv);
 }

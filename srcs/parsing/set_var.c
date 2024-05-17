@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 04:41:08 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/02 16:58:00 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/17 13:57:50 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ static void	set_var_mid(t_params **para, t_env **env)
 				free((*para)->com[i]);
 				(*para)->com[i] = var;
 				z = 0;
+				break ;
 			}
 			z++;
 		}

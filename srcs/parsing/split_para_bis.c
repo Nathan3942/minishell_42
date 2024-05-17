@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:58:31 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/30 12:02:42 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:38:46 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,6 @@ int	count_quote(char *str, int *i)
 
 int	count_red(char *str, int *i)
 {
-	int	len;
-
-	len = 0;
 	if (str[*i] == '<')
 	{
 		(*i)++;

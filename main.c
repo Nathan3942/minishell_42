@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:52:31 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/02 17:10:09 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:55:12 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	main(int argc, char **argv, char **env)
 		put->input = NULL;
 		put->output = NULL;
 		input = get_input();
-		if (ft_strstrbool(input, "exit") == 0)
-			exit(EXIT_SUCCESS);
+		// if (ft_strstrbool(input, "exit") == 0)
+		// 	exit(EXIT_SUCCESS);
 		printf("%s\n", input);
 		if (input != NULL)
 		{
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **env)
 			if (error == 0)
 			{
 				print_all(&para, &lstenv, &put);
-				commande(&para, &lstenv, env);
+				commande(&para, &lstenv, env, &put);
 				free_all(&para, &put);
 			}
 			else
